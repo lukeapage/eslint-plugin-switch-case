@@ -35,8 +35,8 @@ Rules are divided into categories for your convenience. All rules are off by def
 
 ### Stylistic Issues
 These rules are purely matters of style and are quite subjective.
-* [no-rename](docs/rules/no-case-curly.md): Forbid curly brackets around case statements.
-* [in-params](docs/rules/case-newline.md): Configure newlines around switch cases.
+* [no-case-curly](docs/rules/no-case-curly.md): Forbid curly brackets around case statements.
+* [newline-between-switch-case](docs/rules/newline-between-switch-case.md): Configure newlines around switch cases.
 
 # Contributing
 Contributions are always welcome!.
