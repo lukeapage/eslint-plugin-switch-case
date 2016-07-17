@@ -16,7 +16,7 @@ function isReachable(segment) {
 /**
  * Checks if there is a blank line between tokens
  */
-function isNewlineBetweenTokens(sourceCode, startNode, endNode) {
+function getTokensWithNewlineBetween(sourceCode, startNode, endNode) {
   const endLine = endNode.loc.start.line;
 
   let next = startNode;
@@ -26,11 +26,11 @@ function isNewlineBetweenTokens(sourceCode, startNode, endNode) {
     next = sourceCode.getTokenOrCommentAfter(next);
 
     if (next.loc.start.line > previous.loc.end.line + 1) {
-      return true;
+      return [previous, next];
     }
   } while (next.loc.start.line < endLine);
 
-  return false;
+  return null;
 }
 
 module.exports = {
@@ -89,13 +89,20 @@ module.exports = {
 
         const nextToken = sourceCode.getTokenAfter(node);
 
-        const hasBlankLinesBetween = isNewlineBetweenTokens(sourceCode, node, nextToken);
+        const tokensWithBlankLinesBetween =
+          getTokensWithNewlineBetween(sourceCode, node, nextToken);
+        const hasBlankLinesBetween = Boolean(tokensWithBlankLinesBetween);
         const isNewlineRequired = isFallthrough ?
           optionIsNewlineBetweenFallthrough : optionIsNewlineBetweenSwitchCases;
 
         if (hasBlankLinesBetween && !isNewlineRequired) {
           context.report({
             node,
+            fix(fixer) {
+              const [previous, next] = tokensWithBlankLinesBetween;
+              return fixer.replaceTextRange(
+                [previous.end, next.start - next.loc.start.column], '\n');
+            },
             message: 'Extraneous newlines between switch cases.',
           });
         } else if (!hasBlankLinesBetween && isNewlineRequired) {

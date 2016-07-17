@@ -253,6 +253,12 @@ ruleTester.run('newline-between-switch-case', rule, {
           case 1:break;
         }
         `,
+      output: `
+        switch(a) {
+          case 2:
+          case 1:break;
+        }
+        `,
       options: ['never', { fallthrough: 'never' }],
       errors: errorsExtraneous,
     }),
@@ -261,6 +267,12 @@ ruleTester.run('newline-between-switch-case', rule, {
         switch(a) {
           case 2:break;
 
+          case 1:break;
+        }
+        `,
+      output: `
+        switch(a) {
+          case 2:break;
           case 1:break;
         }
         `,
@@ -276,6 +288,13 @@ ruleTester.run('newline-between-switch-case', rule, {
           case 1:break;
         }
         `,
+      output: `
+        switch(a) {
+          case 2:break;
+          // comment
+          case 1:break;
+        }
+        `,
       options: ['never', { fallthrough: 'never' }],
       errors: errorsExtraneous,
     }),
@@ -285,6 +304,13 @@ ruleTester.run('newline-between-switch-case', rule, {
           case 2:break;
           // comment
 
+          case 1:break;
+        }
+        `,
+      output: `
+        switch(a) {
+          case 2:break;
+          // comment
           case 1:break;
         }
         `,
@@ -321,6 +347,15 @@ ruleTester.run('newline-between-switch-case', rule, {
           case 3:
         }
         `,
+      output: `
+        switch(a) {
+          case 2:
+            f();
+          case 1:break;
+
+          case 3:
+        }
+        `,
       options: ['always', { fallthrough: 'never' }],
       errors: errorsExtraneous,
     }),
@@ -331,6 +366,16 @@ ruleTester.run('newline-between-switch-case', rule, {
             f();
           }
 
+          case 1:break;
+
+          case 3:
+        }
+        `,
+      output: `
+        switch(a) {
+          case 2: {
+            f();
+          }
           case 1:break;
 
           case 3:
