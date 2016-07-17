@@ -1,6 +1,6 @@
 {
   "name": "eslint-plugin-switch-case",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "author": "Luke Page",
   "description": "switch-case specific linting rules for ESLint",
   "main": "lib/index.js",
