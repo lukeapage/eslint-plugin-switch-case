@@ -37,6 +37,8 @@ module.exports = {
   meta: {
     docs: {},
 
+    fixable: 'whitespace',
+
     schema: [
       {
         enum: ['always', 'never'],
@@ -92,9 +94,18 @@ module.exports = {
           optionIsNewlineBetweenFallthrough : optionIsNewlineBetweenSwitchCases;
 
         if (hasBlankLinesBetween && !isNewlineRequired) {
-          context.report(node, 'Extraneous newlines between switch cases.');
+          context.report({
+            node,
+            message: 'Extraneous newlines between switch cases.',
+          });
         } else if (!hasBlankLinesBetween && isNewlineRequired) {
-          context.report(node, 'Newline required between switch cases.');
+          context.report({
+            node,
+            fix(fixer) {
+              return fixer.insertTextAfter(node, '\n');
+            },
+            message: 'Newline required between switch cases.',
+          });
         }
       },
     };
