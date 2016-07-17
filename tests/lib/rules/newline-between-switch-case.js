@@ -11,8 +11,9 @@ import { test } from '../utils';
 // ------------------------------------------------------------------------------
 
 const ruleTester = new RuleTester();
-const errors = [{ message: '' }];
-ruleTester.run('no-rename', rule, {
+const errorsExtraneous = [{ message: 'Extraneous newlines between switch cases.' }];
+const errorsMissing = [{ message: 'Newline required between switch cases.' }];
+ruleTester.run('newline-between-switch-case', rule, {
   valid: [
     test({
       code: `
@@ -20,7 +21,7 @@ ruleTester.run('no-rename', rule, {
           case 1:break;
         }
         `,
-      options: ['always', { fallthrough: 'always' }]
+      options: ['always', { fallthrough: 'always' }],
     }),
     test({
       code: `
@@ -30,7 +31,7 @@ ruleTester.run('no-rename', rule, {
           case 1:break;
         }
         `,
-      options: ['always', { fallthrough: 'always' }]
+      options: ['always', { fallthrough: 'always' }],
     }),
     test({
       code: `
@@ -40,7 +41,7 @@ ruleTester.run('no-rename', rule, {
           case 1:break;
         }
         `,
-      options: ['always', { fallthrough: 'always' }]
+      options: ['always', { fallthrough: 'always' }],
     }),
     test({
       code: `
@@ -51,7 +52,7 @@ ruleTester.run('no-rename', rule, {
           case 1:break;
         }
         `,
-      options: ['always', { fallthrough: 'always' }]
+      options: ['always', { fallthrough: 'always' }],
     }),
     test({
       code: `
@@ -62,7 +63,7 @@ ruleTester.run('no-rename', rule, {
           case 1:break;
         }
         `,
-      options: ['always', { fallthrough: 'always' }]
+      options: ['always', { fallthrough: 'always' }],
     }),
     test({
       code: `
@@ -70,7 +71,7 @@ ruleTester.run('no-rename', rule, {
           case 1:break;
         }
         `,
-      options: ['never', { fallthrough: 'never' }]
+      options: ['never', { fallthrough: 'never' }],
     }),
     test({
       code: `
@@ -79,7 +80,7 @@ ruleTester.run('no-rename', rule, {
           case 1:break;
         }
         `,
-      options: ['never', { fallthrough: 'never' }]
+      options: ['never', { fallthrough: 'never' }],
     }),
     test({
       code: `
@@ -88,17 +89,7 @@ ruleTester.run('no-rename', rule, {
           case 1:break;
         }
         `,
-      options: ['never', { fallthrough: 'never' }]
-    }),
-    test({
-      code: `
-        switch(a) {
-          case 2:break;
-          // comment
-          case 1:break;
-        }
-        `,
-      options: ['never', { fallthrough: 'never' }]
+      options: ['never', { fallthrough: 'never' }],
     }),
     test({
       code: `
@@ -108,7 +99,7 @@ ruleTester.run('no-rename', rule, {
           case 1:break;
         }
         `,
-      options: ['never', { fallthrough: 'never' }]
+      options: ['never', { fallthrough: 'never' }],
     }),
     test({
       code: `
@@ -119,7 +110,7 @@ ruleTester.run('no-rename', rule, {
           case 3:
         }
         `,
-      options: ['always', { fallthrough: 'never' }]
+      options: ['always', { fallthrough: 'never' }],
     }),
     test({
       code: `
@@ -131,7 +122,54 @@ ruleTester.run('no-rename', rule, {
           case 3:
         }
         `,
-      options: ['always', { fallthrough: 'never' }]
+      options: ['always', { fallthrough: 'never' }],
+    }),
+    test({
+      code: `
+        switch(a) {
+          case 2: {
+            f();
+          }
+          case 1:break;
+
+          case 3:
+        }
+        `,
+      options: ['always', { fallthrough: 'never' }],
+    }),
+    test({
+      code: `
+        switch(a) {
+          case 2: {
+            f();
+            break;
+          }
+
+          case 1:break;
+
+          case 3:
+        }
+        `,
+      options: ['always', { fallthrough: 'never' }],
+    }),
+    test({
+      code: `var f = () => {
+        switch(a) {
+          case 2: {
+            const b = true;
+            if (a) {
+              return a;
+            } else {
+              return b;
+            }
+          }
+
+          case 1:break;
+
+          case 3:
+        }};
+        `,
+      options: ['always', { fallthrough: 'never' }],
     }),
   ],
   invalid: [
@@ -143,7 +181,7 @@ ruleTester.run('no-rename', rule, {
         }
         `,
       options: ['always', { fallthrough: 'always' }],
-      errors,
+      errors: errorsMissing,
     }),
     test({
       code: `
@@ -153,7 +191,7 @@ ruleTester.run('no-rename', rule, {
         }
         `,
       options: ['always', { fallthrough: 'always' }],
-      errors,
+      errors: errorsMissing,
     }),
     test({
       code: `
@@ -164,7 +202,7 @@ ruleTester.run('no-rename', rule, {
         }
         `,
       options: ['always', { fallthrough: 'always' }],
-      errors,
+      errors: errorsMissing,
     }),
     test({
       code: `
@@ -175,7 +213,7 @@ ruleTester.run('no-rename', rule, {
         }
         `,
       options: ['never', { fallthrough: 'never' }],
-      errors,
+      errors: errorsExtraneous,
     }),
     test({
       code: `
@@ -186,7 +224,7 @@ ruleTester.run('no-rename', rule, {
         }
         `,
       options: ['never', { fallthrough: 'never' }],
-      errors,
+      errors: errorsExtraneous,
     }),
     test({
       code: `
@@ -198,7 +236,7 @@ ruleTester.run('no-rename', rule, {
         }
         `,
       options: ['never', { fallthrough: 'never' }],
-      errors,
+      errors: errorsExtraneous,
     }),
     test({
       code: `
@@ -210,7 +248,7 @@ ruleTester.run('no-rename', rule, {
         }
         `,
       options: ['never', { fallthrough: 'never' }],
-      errors,
+      errors: errorsExtraneous,
     }),
     test({
       code: `
@@ -221,7 +259,7 @@ ruleTester.run('no-rename', rule, {
         }
         `,
       options: ['always', { fallthrough: 'never' }],
-      errors,
+      errors: errorsMissing,
     }),
     test({
       code: `
@@ -235,7 +273,22 @@ ruleTester.run('no-rename', rule, {
         }
         `,
       options: ['always', { fallthrough: 'never' }],
-      errors,
+      errors: errorsExtraneous,
+    }),
+    test({
+      code: `
+        switch(a) {
+          case 2: {
+            f();
+          }
+
+          case 1:break;
+
+          case 3:
+        }
+        `,
+      options: ['always', { fallthrough: 'never' }],
+      errors: errorsExtraneous,
     }),
   ],
 });

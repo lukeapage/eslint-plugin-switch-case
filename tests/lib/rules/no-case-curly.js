@@ -13,7 +13,7 @@ import { test } from '../utils';
 const ruleTester = new RuleTester();
 const errors = [{ message: 'Do not use braces in a case - extract the case to a' +
   ' function if it requires its own variables.' }];
-ruleTester.run('no-rename', rule, {
+ruleTester.run('no-case-curly', rule, {
   valid: [
     test({ code: 'switch(a) { case 1: break; }' }),
     test({ code: 'switch(a) { case 1: case 2: }' }),

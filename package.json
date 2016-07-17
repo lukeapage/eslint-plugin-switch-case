@@ -23,7 +23,8 @@
   "homepage": "https://github.com/lukeapage/eslint-plugin-switch-case",
   "bugs": "https://github.com/lukeapage/eslint-plugin-switch-case/issues",
   "dependencies": {
-    "lodash.zipobject": "^4.1.3"
+    "lodash.last": "^3.0.0",
+    "lodash.zipobject": "^4.0.0"
   },
   "devDependencies": {
     "babel-cli": "^6.10.1",
