@@ -1,0 +1,46 @@
+{
+  "name": "eslint-plugin-switch-case",
+  "version": "0.0.1",
+  "author": "Luke Page",
+  "description": "switch-case specific linting rules for ESLint",
+  "main": "lib/index.js",
+  "scripts": {
+    "lint": "eslint ./",
+    "lint-fix": "eslint --fix ./",
+    "test": "npm run lint && npm run unit-test",
+    "unit-test": "mocha tests/**/*.js --compilers js:babel-register --reporter dot",
+    "prepublish": "babel src -d lib"
+  },
+  "files": [
+    "LICENSE",
+    "README.md",
+    "lib"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/lukeapage/eslint-plugin-switch-case"
+  },
+  "homepage": "https://github.com/lukeapage/eslint-plugin-switch-case",
+  "bugs": "https://github.com/lukeapage/eslint-plugin-switch-case/issues",
+  "dependencies": {
+    "lodash.zipobject": "^4.1.3"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.10.1",
+    "babel-preset-es2015": "^6.9.0",
+    "babel-register": "^6.9.0",
+    "eslint": "^3.0.0",
+    "eslint-config-airbnb-base": "~3.0.1",
+    "eslint-plugin-import": "^1.10.2",
+    "istanbul": "^0.4.4",
+    "lodash.defaults": "^4.0.1",
+    "mocha": "^2.5.3"
+  },
+  "keywords": [
+    "eslint",
+    "eslint-plugin",
+    "eslintplugin",
+    "destructuring"
+  ],
+  "license": "MIT"
+}
