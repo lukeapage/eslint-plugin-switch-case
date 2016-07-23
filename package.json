@@ -1,6 +1,6 @@
 {
   "name": "eslint-plugin-switch-case",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "author": "Luke Page",
   "description": "switch-case specific linting rules for ESLint",
   "main": "lib/index.js",
@@ -9,7 +9,7 @@
     "lint-fix": "eslint --fix ./",
     "test": "npm run lint && npm run unit-test",
     "unit-test": "mocha tests/**/*.js --compilers js:babel-register --reporter dot",
-    "prepublish": "babel src -d lib"
+    "prepublish": "rm -rf lib && babel src -d lib"
   },
   "files": [
     "LICENSE",
