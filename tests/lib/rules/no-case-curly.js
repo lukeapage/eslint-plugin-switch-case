@@ -2,8 +2,8 @@
 // Requirements
 // ------------------------------------------------------------------------------
 
-import rule from '../../../src/rules/no-case-curly';
 import { RuleTester } from 'eslint';
+import rule from '../../../src/rules/no-case-curly';
 import { test } from '../utils';
 
 // ------------------------------------------------------------------------------

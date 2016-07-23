@@ -2,8 +2,8 @@
 // Requirements
 // ------------------------------------------------------------------------------
 
-import rule from '../../../src/rules/newline-between-switch-case';
 import { RuleTester } from 'eslint';
+import rule from '../../../src/rules/newline-between-switch-case';
 import { test } from '../utils';
 
 // ------------------------------------------------------------------------------
