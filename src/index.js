@@ -10,8 +10,8 @@ module.exports = {
   configs: {
     recommended: {
       rules: {
-        'destructuring/no-rename': 'error',
-        'destructuring/in-params': 'error',
+        'switch-case/newline-between-switch-case': 'error',
+        'switch-case/no-case-curly': 'error',
       },
     },
   },
