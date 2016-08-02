@@ -35,7 +35,7 @@
     "eslint-plugin-import": "^1.11.1",
     "istanbul": "^0.4.4",
     "lodash.defaults": "^4.0.1",
-    "mocha": "^2.5.3"
+    "mocha": "^3.0.0"
   },
   "engines": {
     "node": ">=4"
