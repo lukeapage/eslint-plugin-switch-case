@@ -34,4 +34,4 @@ switch(a) {
 
 ## When Not To Use It
 
-If you don't mind switch statement cases to have their own variables/scope.
+If you need switch statement cases to have their own variables/scope.
