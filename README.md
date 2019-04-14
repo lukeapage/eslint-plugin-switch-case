@@ -13,7 +13,7 @@ Install [ESLint](https://www.github.com/eslint/eslint) either locally or globall
 
 If you installed `ESLint` globally, you have to install the plugin globally too. Otherwise, install it locally.
 
-    $ npm install eslint-plugin-destructuring
+    $ npm install eslint-plugin-switch-case
 
 # Configuration
 
