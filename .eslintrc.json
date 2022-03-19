@@ -1,5 +1,9 @@
 {
-    "extends": "airbnb-base",
-    "rules": {
-    }
+  "parserOptions": {
+    "ecmaVersion": "2018"
+  },
+  "env": {
+    "node": true
+  },
+  "rules": {}
 }

@@ -2,18 +2,20 @@
 // Requirements
 // ------------------------------------------------------------------------------
 
-import { RuleTester } from 'eslint';
-import rule from '../../../src/rules/newline-between-switch-case';
-import { test } from '../utils';
+const { RuleTester } = require("eslint");
+const rule = require("../../../src/rules/newline-between-switch-case");
+const { test } = require("../utils");
 
 // ------------------------------------------------------------------------------
 // Tests
 // ------------------------------------------------------------------------------
 
 const ruleTester = new RuleTester();
-const errorsExtraneous = [{ message: 'Extraneous newlines between switch cases.' }];
-const errorsMissing = [{ message: 'Newline required between switch cases.' }];
-ruleTester.run('newline-between-switch-case', rule, {
+const errorsExtraneous = [
+  { message: "Extraneous newlines between switch cases." },
+];
+const errorsMissing = [{ message: "Newline required between switch cases." }];
+ruleTester.run("newline-between-switch-case", rule, {
   valid: [
     test({
       code: `
@@ -21,7 +23,7 @@ ruleTester.run('newline-between-switch-case', rule, {
           case 1:break;
         }
         `,
-      options: ['always', { fallthrough: 'always' }],
+      options: ["always", { fallthrough: "always" }],
     }),
     test({
       code: `
@@ -31,7 +33,7 @@ ruleTester.run('newline-between-switch-case', rule, {
           case 1:break;
         }
         `,
-      options: ['always', { fallthrough: 'always' }],
+      options: ["always", { fallthrough: "always" }],
     }),
     test({
       code: `
@@ -41,7 +43,7 @@ ruleTester.run('newline-between-switch-case', rule, {
           case 1:break;
         }
         `,
-      options: ['always', { fallthrough: 'always' }],
+      options: ["always", { fallthrough: "always" }],
     }),
     test({
       code: `
@@ -52,7 +54,7 @@ ruleTester.run('newline-between-switch-case', rule, {
           case 1:break;
         }
         `,
-      options: ['always', { fallthrough: 'always' }],
+      options: ["always", { fallthrough: "always" }],
     }),
     test({
       code: `
@@ -63,7 +65,7 @@ ruleTester.run('newline-between-switch-case', rule, {
           case 1:break;
         }
         `,
-      options: ['always', { fallthrough: 'always' }],
+      options: ["always", { fallthrough: "always" }],
     }),
     test({
       code: `
@@ -71,7 +73,7 @@ ruleTester.run('newline-between-switch-case', rule, {
           case 1:break;
         }
         `,
-      options: ['never', { fallthrough: 'never' }],
+      options: ["never", { fallthrough: "never" }],
     }),
     test({
       code: `
@@ -80,7 +82,7 @@ ruleTester.run('newline-between-switch-case', rule, {
           case 1:break;
         }
         `,
-      options: ['never', { fallthrough: 'never' }],
+      options: ["never", { fallthrough: "never" }],
     }),
     test({
       code: `
@@ -89,7 +91,7 @@ ruleTester.run('newline-between-switch-case', rule, {
           case 1:break;
         }
         `,
-      options: ['never', { fallthrough: 'never' }],
+      options: ["never", { fallthrough: "never" }],
     }),
     test({
       code: `
@@ -99,7 +101,7 @@ ruleTester.run('newline-between-switch-case', rule, {
           case 1:break;
         }
         `,
-      options: ['never', { fallthrough: 'never' }],
+      options: ["never", { fallthrough: "never" }],
     }),
     test({
       code: `
@@ -110,7 +112,7 @@ ruleTester.run('newline-between-switch-case', rule, {
           case 3:
         }
         `,
-      options: ['always', { fallthrough: 'never' }],
+      options: ["always", { fallthrough: "never" }],
     }),
     test({
       code: `
@@ -122,7 +124,7 @@ ruleTester.run('newline-between-switch-case', rule, {
           case 3:
         }
         `,
-      options: ['always', { fallthrough: 'never' }],
+      options: ["always", { fallthrough: "never" }],
     }),
     test({
       code: `
@@ -135,7 +137,7 @@ ruleTester.run('newline-between-switch-case', rule, {
           case 3:
         }
         `,
-      options: ['always', { fallthrough: 'never' }],
+      options: ["always", { fallthrough: "never" }],
     }),
     test({
       code: `
@@ -150,7 +152,7 @@ ruleTester.run('newline-between-switch-case', rule, {
           case 3:
         }
         `,
-      options: ['always', { fallthrough: 'never' }],
+      options: ["always", { fallthrough: "never" }],
     }),
     test({
       code: `var f = () => {
@@ -169,7 +171,7 @@ ruleTester.run('newline-between-switch-case', rule, {
           case 3:
         }};
         `,
-      options: ['always', { fallthrough: 'never' }],
+      options: ["always", { fallthrough: "never" }],
     }),
   ],
   invalid: [
@@ -187,7 +189,7 @@ ruleTester.run('newline-between-switch-case', rule, {
           case 1:break;
         }
         `,
-      options: ['always', { fallthrough: 'always' }],
+      options: ["always", { fallthrough: "always" }],
       errors: errorsMissing,
     }),
     test({
@@ -204,7 +206,7 @@ ruleTester.run('newline-between-switch-case', rule, {
           case 1:break;
         }
         `,
-      options: ['always', { fallthrough: 'always' }],
+      options: ["always", { fallthrough: "always" }],
       errors: errorsMissing,
     }),
     test({
@@ -223,7 +225,7 @@ ruleTester.run('newline-between-switch-case', rule, {
           case 1:break;
         }
         `,
-      options: ['always', { fallthrough: 'always' }],
+      options: ["always", { fallthrough: "always" }],
       errors: errorsMissing,
     }),
     test({
@@ -242,7 +244,7 @@ ruleTester.run('newline-between-switch-case', rule, {
           case 1:break;
         }
         `,
-      options: ['always', { fallthrough: 'always' }],
+      options: ["always", { fallthrough: "always" }],
       errors: errorsMissing,
     }),
     test({
@@ -259,7 +261,7 @@ ruleTester.run('newline-between-switch-case', rule, {
           case 1:break;
         }
         `,
-      options: ['never', { fallthrough: 'never' }],
+      options: ["never", { fallthrough: "never" }],
       errors: errorsExtraneous,
     }),
     test({
@@ -276,7 +278,7 @@ ruleTester.run('newline-between-switch-case', rule, {
           case 1:break;
         }
         `,
-      options: ['never', { fallthrough: 'never' }],
+      options: ["never", { fallthrough: "never" }],
       errors: errorsExtraneous,
     }),
     test({
@@ -295,7 +297,7 @@ ruleTester.run('newline-between-switch-case', rule, {
           case 1:break;
         }
         `,
-      options: ['never', { fallthrough: 'never' }],
+      options: ["never", { fallthrough: "never" }],
       errors: errorsExtraneous,
     }),
     test({
@@ -314,7 +316,7 @@ ruleTester.run('newline-between-switch-case', rule, {
           case 1:break;
         }
         `,
-      options: ['never', { fallthrough: 'never' }],
+      options: ["never", { fallthrough: "never" }],
       errors: errorsExtraneous,
     }),
     test({
@@ -333,7 +335,7 @@ ruleTester.run('newline-between-switch-case', rule, {
           case 3:
         }
         `,
-      options: ['always', { fallthrough: 'never' }],
+      options: ["always", { fallthrough: "never" }],
       errors: errorsMissing,
     }),
     test({
@@ -356,7 +358,7 @@ ruleTester.run('newline-between-switch-case', rule, {
           case 3:
         }
         `,
-      options: ['always', { fallthrough: 'never' }],
+      options: ["always", { fallthrough: "never" }],
       errors: errorsExtraneous,
     }),
     test({
@@ -381,7 +383,7 @@ ruleTester.run('newline-between-switch-case', rule, {
           case 3:
         }
         `,
-      options: ['always', { fallthrough: 'never' }],
+      options: ["always", { fallthrough: "never" }],
       errors: errorsExtraneous,
     }),
   ],

@@ -1,4 +1,6 @@
-import last from 'lodash.last';
+function last(array) {
+  return array[array.length - 1];
+}
 
 //------------------------------------------------------------------------------
 // Rule Definition
@@ -37,17 +39,17 @@ module.exports = {
   meta: {
     docs: {},
 
-    fixable: 'whitespace',
+    fixable: "whitespace",
 
     schema: [
       {
-        enum: ['always', 'never'],
+        enum: ["always", "never"],
       },
       {
-        type: 'object',
+        type: "object",
         properties: {
           fallthrough: {
-            enum: ['always', 'never'],
+            enum: ["always", "never"],
           },
         },
         additionalProperties: false,
@@ -56,9 +58,11 @@ module.exports = {
   },
 
   create: function newlineBetweenSwitchCase(context) {
-    const optionIsNewlineBetweenSwitchCases = context.options[0] === 'always';
-    const optionIsNewlineBetweenFallthrough = context.options[1] && context.options[1].fallthrough ?
-      context.options[1].fallthrough === 'always' : optionIsNewlineBetweenSwitchCases;
+    const optionIsNewlineBetweenSwitchCases = context.options[0] === "always";
+    const optionIsNewlineBetweenFallthrough =
+      context.options[1] && context.options[1].fallthrough
+        ? context.options[1].fallthrough === "always"
+        : optionIsNewlineBetweenSwitchCases;
 
     let currentCodePath = null;
     const sourceCode = context.getSourceCode();
@@ -72,7 +76,7 @@ module.exports = {
         currentCodePath = currentCodePath.upper;
       },
 
-      'SwitchCase:exit': (node) => {
+      "SwitchCase:exit": (node) => {
         // ignore the last switch case
         if (last(node.parent.cases) === node) {
           return;
@@ -83,17 +87,24 @@ module.exports = {
         /*
          * A fallthrough is either if we are empty or if the end of the case is reachable
          */
-        if (node.consequent.length === 0 || currentCodePath.currentSegments.some(isReachable)) {
+        if (
+          node.consequent.length === 0 ||
+          currentCodePath.currentSegments.some(isReachable)
+        ) {
           isFallthrough = true;
         }
 
         const nextToken = sourceCode.getTokenAfter(node);
 
-        const tokensWithBlankLinesBetween =
-          getTokensWithNewlineBetween(sourceCode, node, nextToken);
+        const tokensWithBlankLinesBetween = getTokensWithNewlineBetween(
+          sourceCode,
+          node,
+          nextToken
+        );
         const hasBlankLinesBetween = Boolean(tokensWithBlankLinesBetween);
-        const isNewlineRequired = isFallthrough ?
-          optionIsNewlineBetweenFallthrough : optionIsNewlineBetweenSwitchCases;
+        const isNewlineRequired = isFallthrough
+          ? optionIsNewlineBetweenFallthrough
+          : optionIsNewlineBetweenSwitchCases;
 
         if (hasBlankLinesBetween && !isNewlineRequired) {
           context.report({
@@ -101,17 +112,19 @@ module.exports = {
             fix(fixer) {
               const [previous, next] = tokensWithBlankLinesBetween;
               return fixer.replaceTextRange(
-                [previous.end, next.start - next.loc.start.column], '\n');
+                [previous.range[1], next.range[0] - next.loc.start.column],
+                "\n"
+              );
             },
-            message: 'Extraneous newlines between switch cases.',
+            message: "Extraneous newlines between switch cases.",
           });
         } else if (!hasBlankLinesBetween && isNewlineRequired) {
           context.report({
             node,
             fix(fixer) {
-              return fixer.insertTextAfter(node, '\n');
+              return fixer.insertTextAfter(node, "\n");
             },
-            message: 'Newline required between switch cases.',
+            message: "Newline required between switch cases.",
           });
         }
       },
