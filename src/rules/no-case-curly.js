@@ -12,9 +12,15 @@ module.exports = {
   create: function noCaseCurly(context) {
     return {
       SwitchCase(node) {
-        if (node.consequent.length && node.consequent[0].type === 'BlockStatement') {
-          context.report(node, 'Do not use braces in a case - extract the case to a' +
-            ' function if it requires its own variables.');
+        if (
+          node.consequent.length &&
+          node.consequent[0].type === "BlockStatement"
+        ) {
+          context.report(
+            node,
+            "Do not use braces in a case - extract the case to a" +
+              " function if it requires its own variables."
+          );
         }
       },
     };

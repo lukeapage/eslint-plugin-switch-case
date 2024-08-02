@@ -1,7 +1,7 @@
 exports.test = function test(t) {
   return {
     ...t,
-    parserOptions: {
+    languageOptions: {
       sourceType: "module",
       ecmaVersion: 2018,
     },

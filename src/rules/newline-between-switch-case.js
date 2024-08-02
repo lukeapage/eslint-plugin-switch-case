@@ -58,22 +58,47 @@ module.exports = {
   },
 
   create: function newlineBetweenSwitchCase(context) {
+    const sourceCode = context.sourceCode ?? context.getSourceCode();
     const optionIsNewlineBetweenSwitchCases = context.options[0] === "always";
+
     const optionIsNewlineBetweenFallthrough =
       context.options[1] && context.options[1].fallthrough
         ? context.options[1].fallthrough === "always"
         : optionIsNewlineBetweenSwitchCases;
 
     let currentCodePath = null;
-    const sourceCode = context.getSourceCode();
+    // tracks the segments we've traversed in the current code path
+    let currentSegments;
+
+    // tracks all current segments for all open paths
+    const allCurrentSegments = [];
 
     return {
       onCodePathStart(codePath) {
         currentCodePath = codePath;
+        allCurrentSegments.push(currentSegments);
+        currentSegments = new Set();
       },
 
       onCodePathEnd() {
         currentCodePath = currentCodePath.upper;
+        currentSegments = allCurrentSegments.pop();
+      },
+
+      onCodePathSegmentStart(segment) {
+        currentSegments.add(segment);
+      },
+
+      onCodePathSegmentEnd(segment) {
+        currentSegments.delete(segment);
+      },
+
+      onUnreachableCodePathSegmentStart(segment) {
+        currentSegments.add(segment);
+      },
+
+      onUnreachableCodePathSegmentEnd(segment) {
+        currentSegments.delete(segment);
       },
 
       "SwitchCase:exit": (node) => {
@@ -89,7 +114,7 @@ module.exports = {
          */
         if (
           node.consequent.length === 0 ||
-          currentCodePath.currentSegments.some(isReachable)
+          [...currentSegments].some(isReachable)
         ) {
           isFallthrough = true;
         }
