@@ -33,6 +33,10 @@ This plugin exports a `recommended` configuration that enforces all the rules. Y
 # List of provided rules
 Rules are divided into categories for your convenience. All rules are off by default, unless you use one of the plugin's configurations which turn all relevant rules on.
 
+### Possible Errors
+These rules relate to possible logic errors in code.
+* [no-default-case](docs/rules/no-default-case.md): Disallow default case in switch statements.
+
 ### Stylistic Issues
 These rules are purely matters of style and are quite subjective.
 * [no-case-curly](docs/rules/no-case-curly.md): Forbid curly brackets around case statements.

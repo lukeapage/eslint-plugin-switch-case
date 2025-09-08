@@ -18,6 +18,7 @@ module.exports = {
       rules: {
         "switch-case/newline-between-switch-case": "error",
         "switch-case/no-case-curly": "error",
+        "switch-case/no-default-case": "error",
       },
     },
   },
