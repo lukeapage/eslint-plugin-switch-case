@@ -22,10 +22,10 @@ function getTokensWithNewlineBetween(sourceCode, startNode, endNode) {
   const endLine = endNode.loc.start.line;
 
   let next = startNode;
-  let previous = startNode;
+  let previous;
   do {
     previous = next;
-    next = sourceCode.getTokenOrCommentAfter(next);
+    next = sourceCode.getTokenAfter(next, { includeComments: true });
 
     if (next.loc.start.line > previous.loc.end.line + 1) {
       return [previous, next];
@@ -38,23 +38,31 @@ function getTokensWithNewlineBetween(sourceCode, startNode, endNode) {
 module.exports = {
   meta: {
     docs: {},
-
     fixable: "whitespace",
-
     schema: [
       {
+        description:
+          "Whether to enforce or disallow whitespace between switch cases",
         enum: ["always", "never"],
       },
       {
         type: "object",
         properties: {
           fallthrough: {
+            description:
+              "Whether to enforce or disallow whitespace between fall through switch cases",
             enum: ["always", "never"],
           },
         },
         additionalProperties: false,
       },
     ],
+    defaultOptions: ["always", { fallthrough: "never" }],
+    messages: {
+      missingNewline: "Newline required between switch cases.",
+      extraNewLine: "Extraneous newlines between switch cases.",
+    },
+    type: "layout",
   },
 
   create: function newlineBetweenSwitchCase(context) {
@@ -124,7 +132,7 @@ module.exports = {
         const tokensWithBlankLinesBetween = getTokensWithNewlineBetween(
           sourceCode,
           node,
-          nextToken
+          nextToken,
         );
         const hasBlankLinesBetween = Boolean(tokensWithBlankLinesBetween);
         const isNewlineRequired = isFallthrough
@@ -138,10 +146,10 @@ module.exports = {
               const [previous, next] = tokensWithBlankLinesBetween;
               return fixer.replaceTextRange(
                 [previous.range[1], next.range[0] - next.loc.start.column],
-                "\n"
+                "\n",
               );
             },
-            message: "Extraneous newlines between switch cases.",
+            messageId: "extraNewLine",
           });
         } else if (!hasBlankLinesBetween && isNewlineRequired) {
           context.report({
@@ -149,7 +157,7 @@ module.exports = {
             fix(fixer) {
               return fixer.insertTextAfter(node, "\n");
             },
-            message: "Newline required between switch cases.",
+            messageId: "missingNewline",
           });
         }
       },

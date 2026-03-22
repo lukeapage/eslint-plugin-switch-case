@@ -14,12 +14,12 @@ The following patterns are considered problems:
 /*eslint switch-case/no-default-case: "error"*/
 
 switch (status) {
-  case 'pending':
-    return 'wait';
-  case 'active':
-    return 'go';
+  case "pending":
+    return "wait";
+  case "active":
+    return "go";
   default:
-    return 'unknown'; // ❌ Default case not allowed
+    return "unknown"; // ❌ Default case not allowed
 }
 ```
 
@@ -28,9 +28,9 @@ switch (status) {
 
 switch (value) {
   case 1:
-    return 'one';
+    return "one";
   case 2:
-    return 'two';
+    return "two";
   default: // ❌ Even empty default case not allowed
 }
 ```
@@ -41,12 +41,12 @@ The following patterns are not considered warnings:
 /*eslint switch-case/no-default-case: "error"*/
 
 switch (status) {
-  case 'pending':
-    return 'wait';
-  case 'active':
-    return 'go';
-  case 'inactive':
-    return 'stop';
+  case "pending":
+    return "wait";
+  case "active":
+    return "go";
+  case "inactive":
+    return "stop";
   // No default case - explicit handling required
 }
 ```
@@ -67,9 +67,9 @@ Examples of **correct** code for this rule with `{ "allowEmpty": true }`:
 /*eslint switch-case/no-default-case: ["error", { "allowEmpty": true }]*/
 
 switch (value) {
-  case 'a':
+  case "a":
     return 1;
-  case 'b':
+  case "b":
     return 2;
   default: // ✅ Empty default case is allowed
 }
@@ -79,12 +79,12 @@ switch (value) {
 /*eslint switch-case/no-default-case: ["error", { "allowEmpty": true }]*/
 
 switch (value) {
-  case 'a':
+  case "a":
     return 1;
-  case 'b':
+  case "b":
     return 2;
   default:
-    // ✅ Comments are allowed in empty default case
+  // ✅ Comments are allowed in empty default case
 }
 ```
 
@@ -94,12 +94,12 @@ Examples of **incorrect** code for this rule with `{ "allowEmpty": true }`:
 /*eslint switch-case/no-default-case: ["error", { "allowEmpty": true }]*/
 
 switch (value) {
-  case 'a':
+  case "a":
     return 1;
-  case 'b':
+  case "b":
     return 2;
   default:
-    return 'unknown'; // ❌ Content in default case not allowed
+    return "unknown"; // ❌ Content in default case not allowed
 }
 ```
 
@@ -107,9 +107,9 @@ switch (value) {
 /*eslint switch-case/no-default-case: ["error", { "allowEmpty": true }]*/
 
 switch (value) {
-  case 'a':
+  case "a":
     return 1;
-  case 'b':
+  case "b":
     return 2;
   default:
     break; // ❌ Break statement counts as content

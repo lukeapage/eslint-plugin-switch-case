@@ -17,7 +17,6 @@ switch (a) {
     break;
   }
 }
-
 ```
 
 The following patterns are not considered warnings:
@@ -25,11 +24,10 @@ The following patterns are not considered warnings:
 ```js
 /*eslint switch-case: "error"*/
 
-switch(a) {
+switch (a) {
   case 1:
     return descriptive(a);
 }
-
 ```
 
 ## When Not To Use It

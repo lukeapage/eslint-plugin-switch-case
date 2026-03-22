@@ -1,13 +1,14 @@
 {
   "name": "eslint-plugin-switch-case",
-  "version": "3.0.1",
+  "version": "4.0.0",
   "author": "Luke Page",
   "description": "switch-case specific linting rules for ESLint",
   "main": "src/index.js",
   "scripts": {
     "lint": "eslint ./",
     "lint-fix": "eslint --fix ./",
-    "test": "mocha tests/**/*.js --reporter dot"
+    "test": "jest",
+    "prettier:write": "prettier --write ."
   },
   "files": [
     "LICENSE",
@@ -21,14 +22,20 @@
   "homepage": "https://github.com/lukeapage/eslint-plugin-switch-case",
   "bugs": "https://github.com/lukeapage/eslint-plugin-switch-case/issues",
   "peerDependencies": {
-    "eslint": "^9.8.0"
+    "eslint": "^9.8.0 || ^10.0.0"
   },
   "devDependencies": {
-    "eslint": "^9.8.0",
-    "mocha": "^9.2.2"
+    "@eslint/js": "^10.0.1",
+    "eslint": "10.1.0",
+    "eslint-config-prettier": "^10.1.8",
+    "eslint-plugin-eslint-plugin": "^7.3.2",
+    "eslint-plugin-n": "^17.24.0",
+    "globals": "^17.4.0",
+    "jest": "30.3.0",
+    "prettier": "3.8.1"
   },
   "engines": {
-    "node": ">=18.18"
+    "node": "^20.19.0 || ^22.13.0 || >= 24"
   },
   "keywords": [
     "eslint",

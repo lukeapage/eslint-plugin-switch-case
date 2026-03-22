@@ -6,7 +6,7 @@ Require newlines between switch cases.
 
 The rule takes a first option of either "always" or "never" as to whether there should be a newline between cases. It also takes an object with the following options:
 
-* fallthrough - "always" or "never" - whether or not to have newlines between cases that fallthrough to each other.
+- fallthrough - "always" or "never" - whether or not to have newlines between cases that fallthrough to each other.
 
 ## Rule Details
 
@@ -24,7 +24,6 @@ switch (a) {
     doSomething();
     break;
 }
-
 ```
 
 The following patterns are not considered warnings:
@@ -45,7 +44,6 @@ switch (a) {
     doSomething();
     break;
 }
-
 ```
 
 ## fallthrough option
@@ -62,7 +60,6 @@ switch (a) {
     doSomething();
     break;
 }
-
 ```
 
 The following patterns are not considered warnings:
@@ -78,7 +75,6 @@ switch (a) {
     doSomething();
     break;
 }
-
 ```
 
 ## When Not To Use It

@@ -4,7 +4,7 @@
 
 module.exports = {
   meta: {
-    type: "problem",
+    type: "suggestion",
     docs: {
       description: "disallow default case in switch statements",
       category: "Possible Errors",
@@ -14,12 +14,18 @@ module.exports = {
         type: "object",
         properties: {
           allowEmpty: {
+            description: "Whether to allow an empty default case",
             type: "boolean",
           },
         },
         additionalProperties: false,
       },
     ],
+    defaultOptions: [{ allowEmpty: false }],
+    messages: {
+      defaultCaseWithContent: "Default case with content is not allowed.",
+      defaultCaseEmpty: "Default case is not allowed.",
+    },
   },
 
   create: function noDefaultCase(context) {
@@ -29,7 +35,7 @@ module.exports = {
     return {
       SwitchStatement(node) {
         const defaultCase = node.cases.find(
-          (switchCase) => switchCase.test === null
+          (switchCase) => switchCase.test === null,
         );
 
         if (defaultCase) {
@@ -38,14 +44,14 @@ module.exports = {
             if (defaultCase.consequent.length > 0) {
               context.report({
                 node: defaultCase,
-                message: "Default case with content is not allowed.",
+                messageId: "defaultCaseWithContent",
               });
             }
           } else {
             // If allowEmpty is false, report any default case
             context.report({
               node: defaultCase,
-              message: "Default case is not allowed.",
+              messageId: "defaultCaseEmpty",
             });
           }
         }

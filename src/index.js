@@ -11,15 +11,24 @@ const rules = fs
     };
   }, {});
 
-module.exports = {
+const plugin = {
+  meta: {
+    name: "eslint-plugin-switch-case",
+    version: "4.0.0",
+    namespace: "switch-case",
+  },
   rules: rules,
-  configs: {
-    recommended: {
-      rules: {
-        "switch-case/newline-between-switch-case": "error",
-        "switch-case/no-case-curly": "error",
-        "switch-case/no-default-case": "error",
-      },
-    },
+  configs: {},
+};
+
+plugin.configs.recommended = {
+  plugins: {
+    "switch-case": plugin,
+  },
+  rules: {
+    "switch-case/newline-between-switch-case": "error",
+    "switch-case/no-case-curly": "error",
   },
 };
+
+module.exports = plugin;
